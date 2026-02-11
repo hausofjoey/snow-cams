@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Cams</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
+    h1 { padding: 1rem; }
+    .cam-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 1rem;
+    }
+    iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border: 2px solid #444;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Live Cams</h1>
+
+  <div class="cam-container">
+
+    <!-- YouTube Live Stream -->
+    <div>
+      <h2>1. YouTube Cam</h2>
+      <iframe
+        src="https://www.youtube.com/embed/ChLc41PxUWc"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Center Harbor Inn Webcam Page -->
+    <div>
+      <h2>2. Lake Winnipesaukee Webcam (Center Harbor Inn)</h2>
+      <iframe
+        src="https://centerharborinn.com/winnipesaukee-webcam/"
+        sandbox="allow-scripts allow-same-origin allow-popups"
+        scrolling="yes">
+      </iframe>
+    </div>
+
+  </div>
+
+</body>
+</html>
