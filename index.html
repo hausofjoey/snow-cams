@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Live Cams</title>
 
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
 <style>
 body {
   margin: 0;
@@ -71,20 +68,6 @@ iframe {
   border: none;
 }
 
-.map-section {
-  position: relative;
-  z-index: 2;
-  margin-bottom: 80px;
-}
-
-#map {
-  width: 90%;
-  max-width: 1300px;
-  height: 750px;
-  margin: 0 auto;
-  border: 2px solid #444;
-}
-
 #snowCanvas {
   position: fixed;
   top: 0;
@@ -104,7 +87,7 @@ View live cams around Lake Winnipesaukee in one place to gauge the weather condt
 </div>
 
 <div class="weather-bar" id="weatherInfo">
-Loading local weather...
+Loading Wolfeboro weather...
 </div>
 
 <div class="cam-container">
@@ -126,86 +109,27 @@ src="https://centerharborinn.com/winnipesaukee-webcam/">
 
 </div>
 
-<div class="map-section">
-<h2>Lake Winnipesaukee Traffic & Weather Map</h2>
-<div id="map"></div>
-</div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 
-// Default fallback: Wolfeboro
-let userLat = 43.5867;
-let userLon = -71.2148;
+// Wolfeboro, NH coordinates
+const lat = 43.5867;
+const lon = -71.2148;
 
-// Initialize map with scroll disabled
-const map = L.map('map', {
-  scrollWheelZoom: false,
-  dragging: true,
-  tap: false
-}).setView([userLat, userLon], 10);
-
-// Dark base map
-const darkLayer = L.tileLayer(
-'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-{ attribution: '&copy; OpenStreetMap &copy; CARTO' }
-).addTo(map);
-
-// Radar overlay
-let radarLayer = L.tileLayer(
-'https://tilecache.rainviewer.com/v2/radar/latest/256/{z}/{x}/{y}/2/1_1.png',
-{ opacity: 0.5 }
-);
-
-// Traffic-style overlay
-const trafficLayer = L.tileLayer(
-'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-{ opacity: 0.4 }
-);
-
-L.control.layers(
-  { "Dark Mode": darkLayer },
-  { "Weather Radar": radarLayer, "Traffic Style": trafficLayer }
-).addTo(map);
-
-// Get user location
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(position => {
-    userLat = position.coords.latitude;
-    userLon = position.coords.longitude;
-    map.setView([userLat, userLon], 11);
-    L.marker([userLat, userLon]).addTo(map)
-      .bindPopup("Your Location").openPopup();
-    fetchWeather(userLat, userLon);
-  }, () => {
-    fetchWeather(userLat, userLon);
+// Fetch weather in Fahrenheit + MPH
+fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph`)
+  .then(res => res.json())
+  .then(data => {
+    const weather = data.current_weather;
+    document.getElementById("weatherInfo").innerHTML =
+      `Wolfeboro, NH — Temp: ${weather.temperature}°F | Wind: ${weather.windspeed} MPH`;
+  })
+  .catch(() => {
+    document.getElementById("weatherInfo").innerHTML =
+      "Weather data currently unavailable.";
   });
-} else {
-  fetchWeather(userLat, userLon);
-}
 
-// Fetch weather from Open-Meteo (no API key required)
-function fetchWeather(lat, lon) {
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
-    .then(res => res.json())
-    .then(data => {
-      const weather = data.current_weather;
-      document.getElementById("weatherInfo").innerHTML =
-        `Current Temp: ${weather.temperature}°C | Wind: ${weather.windspeed} km/h`;
-    });
-}
 
-// Refresh radar every 10 minutes
-setInterval(() => {
-  map.removeLayer(radarLayer);
-  radarLayer = L.tileLayer(
-    'https://tilecache.rainviewer.com/v2/radar/latest/256/{z}/{x}/{y}/2/1_1.png',
-    { opacity: 0.5 }
-  );
-}, 600000);
-
-// Snow animation
+// Snow animation (unchanged)
 const canvas = document.getElementById("snowCanvas");
 const ctx = canvas.getContext("2d");
 let width, height;
