@@ -1,206 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Cams</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Cams</title>
 
-  <!-- Leaflet CSS -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      text-align: center;
-      overflow-x: hidden;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
 
-    h1 {
-      padding-top: 20px;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 2;
-    }
+h1 {
+  padding-top: 20px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
 
-    .description {
-      margin-bottom: 40px;
-      font-size: 18px;
-      color: #ccc;
-      position: relative;
-      z-index: 2;
-    }
+.description {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #ccc;
+  position: relative;
+  z-index: 2;
+}
 
-    .cam-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      padding-bottom: 60px;
-      position: relative;
-      z-index: 2;
-    }
+.weather-bar {
+  margin-bottom: 40px;
+  font-size: 16px;
+  color: #9fd3ff;
+  position: relative;
+  z-index: 2;
+}
 
-    .cam-box {
-      width: 600px;
-      height: 600px;
-      background: #111;
-      border: 2px solid #444;
-      display: flex;
-      flex-direction: column;
-    }
+.cam-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-bottom: 60px;
+  position: relative;
+  z-index: 2;
+}
 
-    .cam-box h2 {
-      margin: 10px 0;
-    }
+.cam-box {
+  width: 600px;
+  height: 600px;
+  background: #111;
+  border: 2px solid #444;
+  display: flex;
+  flex-direction: column;
+}
 
-    iframe {
-      flex: 1;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+.cam-box h2 {
+  margin: 10px 0;
+}
 
-    /* Map Section */
-    .map-section {
-      position: relative;
-      z-index: 2;
-      margin-bottom: 80px;
-    }
+iframe {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 
-    #map {
-      width: 90%;
-      max-width: 1200px;
-      height: 700px;
-      margin: 0 auto;
-      border: 2px solid #444;
-    }
+.map-section {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 80px;
+}
 
-    /* Snow canvas */
-    #snowCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-  </style>
+#map {
+  width: 90%;
+  max-width: 1300px;
+  height: 750px;
+  margin: 0 auto;
+  border: 2px solid #444;
+}
+
+#snowCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+</style>
 </head>
 <body>
 
-  <canvas id="snowCanvas"></canvas>
+<canvas id="snowCanvas"></canvas>
 
-  <h1>Live Cams</h1>
-  <div class="description">
-    View live cams around Lake Winnipesaukee in one place to gauge the weather condtions!
-  </div>
+<h1>Live Cams</h1>
+<div class="description">
+View live cams around Lake Winnipesaukee in one place to gauge the weather condtions!
+</div>
 
-  <div class="cam-container">
+<div class="weather-bar" id="weatherInfo">
+Loading local weather...
+</div>
 
-    <div class="cam-box">
-      <h2>YouTube Cam</h2>
-      <iframe
-        src="https://www.youtube.com/embed/ChLc41PxUWc"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
-    </div>
+<div class="cam-container">
 
-    <div class="cam-box">
-      <h2>Lake Winnipesaukee – Center Harbor Inn</h2>
-      <iframe
-        src="https://centerharborinn.com/winnipesaukee-webcam/">
-      </iframe>
-    </div>
+<div class="cam-box">
+<h2>YouTube Cam</h2>
+<iframe
+src="https://www.youtube.com/embed/ChLc41PxUWc"
+allowfullscreen>
+</iframe>
+</div>
 
-  </div>
+<div class="cam-box">
+<h2>Lake Winnipesaukee – Center Harbor Inn</h2>
+<iframe
+src="https://centerharborinn.com/winnipesaukee-webcam/">
+</iframe>
+</div>
 
-  <!-- Map Section -->
-  <div class="map-section">
-    <h2>New England Traffic Map</h2>
-    <div id="map"></div>
-  </div>
+</div>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<div class="map-section">
+<h2>Lake Winnipesaukee Traffic & Weather Map</h2>
+<div id="map"></div>
+</div>
 
-  <script>
-    // Initialize Map (Centered on Lake Winnipesaukee)
-    const map = L.map('map').setView([43.607, -71.360], 10);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    // Base Layer (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+<script>
 
-    // Marker Example (Center Harbor)
-    L.marker([43.607, -71.360])
-      .addTo(map)
-      .bindPopup("Lake Winnipesaukee Area")
-      .openPopup();
+// Default fallback: Wolfeboro
+let userLat = 43.5867;
+let userLon = -71.2148;
 
-    // Snowfall Animation
-    const canvas = document.getElementById("snowCanvas");
-    const ctx = canvas.getContext("2d");
+// Initialize map with scroll disabled
+const map = L.map('map', {
+  scrollWheelZoom: false,
+  dragging: true,
+  tap: false
+}).setView([userLat, userLon], 10);
 
-    let width, height;
-    let snowflakes = [];
+// Dark base map
+const darkLayer = L.tileLayer(
+'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+{ attribution: '&copy; OpenStreetMap &copy; CARTO' }
+).addTo(map);
 
-    function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+// Radar overlay
+let radarLayer = L.tileLayer(
+'https://tilecache.rainviewer.com/v2/radar/latest/256/{z}/{x}/{y}/2/1_1.png',
+{ opacity: 0.5 }
+);
+
+// Traffic-style overlay
+const trafficLayer = L.tileLayer(
+'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+{ opacity: 0.4 }
+);
+
+L.control.layers(
+  { "Dark Mode": darkLayer },
+  { "Weather Radar": radarLayer, "Traffic Style": trafficLayer }
+).addTo(map);
+
+// Get user location
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(position => {
+    userLat = position.coords.latitude;
+    userLon = position.coords.longitude;
+    map.setView([userLat, userLon], 11);
+    L.marker([userLat, userLon]).addTo(map)
+      .bindPopup("Your Location").openPopup();
+    fetchWeather(userLat, userLon);
+  }, () => {
+    fetchWeather(userLat, userLon);
+  });
+} else {
+  fetchWeather(userLat, userLon);
+}
+
+// Fetch weather from Open-Meteo (no API key required)
+function fetchWeather(lat, lon) {
+  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+    .then(res => res.json())
+    .then(data => {
+      const weather = data.current_weather;
+      document.getElementById("weatherInfo").innerHTML =
+        `Current Temp: ${weather.temperature}°C | Wind: ${weather.windspeed} km/h`;
+    });
+}
+
+// Refresh radar every 10 minutes
+setInterval(() => {
+  map.removeLayer(radarLayer);
+  radarLayer = L.tileLayer(
+    'https://tilecache.rainviewer.com/v2/radar/latest/256/{z}/{x}/{y}/2/1_1.png',
+    { opacity: 0.5 }
+  );
+}, 600000);
+
+// Snow animation
+const canvas = document.getElementById("snowCanvas");
+const ctx = canvas.getContext("2d");
+let width, height;
+let snowflakes = [];
+
+function resizeCanvas() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+function createSnowflakes() {
+  snowflakes = [];
+  for (let i = 0; i < 150; i++) {
+    snowflakes.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      radius: Math.random() * 3 + 1,
+      speed: Math.random() * 1 + 0.5,
+      drift: Math.random() * 0.5 - 0.25
+    });
+  }
+}
+
+function drawSnowflakes() {
+  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = "white";
+  ctx.beginPath();
+  snowflakes.forEach(flake => {
+    ctx.moveTo(flake.x, flake.y);
+    ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+  });
+  ctx.fill();
+  moveSnowflakes();
+}
+
+function moveSnowflakes() {
+  snowflakes.forEach(flake => {
+    flake.y += flake.speed;
+    flake.x += flake.drift;
+    if (flake.y > height) {
+      flake.y = 0;
+      flake.x = Math.random() * width;
     }
+  });
+}
 
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+function updateSnow() {
+  drawSnowflakes();
+  requestAnimationFrame(updateSnow);
+}
 
-    function createSnowflakes() {
-      snowflakes = [];
-      for (let i = 0; i < 150; i++) {
-        snowflakes.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          radius: Math.random() * 3 + 1,
-          speed: Math.random() * 1 + 0.5
-        });
-      }
-    }
+createSnowflakes();
+updateSnow();
 
-    function drawSnowflakes() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "white";
-      ctx.beginPath();
-      snowflakes.forEach(flake => {
-        ctx.moveTo(flake.x, flake.y);
-        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-      });
-      ctx.fill();
-      moveSnowflakes();
-    }
-
-    function moveSnowflakes() {
-      snowflakes.forEach(flake => {
-        flake.y += flake.speed;
-        if (flake.y > height) {
-          flake.y = 0;
-          flake.x = Math.random() * width;
-        }
-      });
-    }
-
-    function updateSnow() {
-      drawSnowflakes();
-      requestAnimationFrame(updateSnow);
-    }
-
-    createSnowflakes();
-    updateSnow();
-  </script>
+</script>
 
 </body>
 </html>
