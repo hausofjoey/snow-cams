@@ -61,11 +61,12 @@ h1 {
   margin: 10px 0;
 }
 
-iframe {
+iframe, img {
   flex: 1;
   width: 100%;
   height: 100%;
   border: none;
+  object-fit: cover;
 }
 
 #snowCanvas {
@@ -83,7 +84,7 @@ iframe {
 
 <h1>Lake Winnipesaukee Weather Cams</h1>
 <div class="description">
-View live cams around Lake Winnipesaukee in one place to gauge the weather condtions!
+View live cams around Lake Winnipesaukee in one place to gauge the weather conditions!
 </div>
 
 <div class="weather-bar" id="weatherInfo">
@@ -92,25 +93,22 @@ Loading Wolfeboro weather...
 
 <div class="cam-container">
 
-<div class="cam-box">
-<h2>YouTube Cam</h2>
-<iframe
-src="https://www.youtube.com/embed/ChLc41PxUWc"
-allowfullscreen>
-</iframe>
-</div>
+  <div class="cam-box">
+    <h2>YouTube Cam</h2>
+    <iframe
+      src="https://www.youtube.com/embed/ChLc41PxUWc"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-<div class="cam-box">
-<h2>Lake Winnipesaukee – Center Harbor Inn</h2>
-<iframe
-src="https://centerharborinn.com/winnipesaukee-webcam/">
-</iframe>
-</div>
+  <div class="cam-box">
+    <h2>Lake Winnipesaukee – Center Harbor Inn</h2>
+    <img id="centerHarborCam" src="https://cam.centerharborinn.com/jpg/1/image.jpg" alt="Center Harbor Cam">
+  </div>
 
 </div>
 
 <script>
-
 // Wolfeboro, NH coordinates
 const lat = 43.5867;
 const lon = -71.2148;
@@ -128,8 +126,14 @@ fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&c
       "Weather data currently unavailable.";
   });
 
+// Center Harbor image refresh
+const centerHarborCam = document.getElementById("centerHarborCam");
+function refreshCam() {
+  centerHarborCam.src = `https://cam.centerharborinn.com/jpg/1/image.jpg?timestamp=${Date.now()}`;
+}
+setInterval(refreshCam, 5000); // Refresh every 5 seconds
 
-// Snow animation (unchanged)
+// Snow animation
 const canvas = document.getElementById("snowCanvas");
 const ctx = canvas.getContext("2d");
 let width, height;
