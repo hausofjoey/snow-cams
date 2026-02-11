@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1">&lt;title&gt;Snow Cams&lt;/title&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;!-- Auto Refresh every 5 minutes --&gt;</p>
+<p class="p1">&lt;meta http-equiv="refresh" content="300"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>font-family: Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>background: #0f172a;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>overflow-x: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>background: #1e293b;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>z-index: 2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>z-index: 2;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.cam {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>background: #1e293b;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>box-shadow: 0 4px 15px rgba(0,0,0,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>width: 600px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>max-width: 95%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>iframe {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>height: 340px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>margin-top: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>padding: 8px 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>border-radius: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>background: #3b82f6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>button:hover {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>background: #2563eb;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* Snow animation */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.snowflake {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>top: -10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>font-size: 1em;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>user-select: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>z-index: 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>animation-name: fall;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>animation-timing-function: linear;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@keyframes fall {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>to {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(100vh);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>iframe {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 250px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;h1&gt;❄️ Snow Cams ❄️&lt;/h1&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="container"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="cam"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;YouTube Live Stream&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;iframe id="cam1"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>src="https://www.youtube.com/embed/ChLc41PxUWc"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>allow="autoplay; encrypted-media"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>allowfullscreen&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/iframe&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="goFullscreen('cam1')"&gt;Fullscreen&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="cam"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Center Harbor Inn Webcam&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;iframe id="cam2"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>src="https://centerharborinn.com/winnipesaukee-webcam/"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/iframe&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="goFullscreen('cam2')"&gt;Fullscreen&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">/* Fullscreen Function */</p>
+<p class="p1">function goFullscreen(id) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var iframe = document.getElementById(id);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if (iframe.requestFullscreen) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>iframe.requestFullscreen();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else if (iframe.webkitRequestFullscreen) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>iframe.webkitRequestFullscreen();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>} else if (iframe.msRequestFullscreen) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>iframe.msRequestFullscreen();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">/* Snow Effect */</p>
+<p class="p1">function createSnowflake() {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const snowflake = document.createElement("div");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>snowflake.classList.add("snowflake");</p>
+<p class="p1"><span class="Apple-converted-space">    </span>snowflake.innerHTML = "❄";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>snowflake.style.left = Math.random() * window.innerWidth + "px";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>snowflake.style.animationDuration = (Math.random() * 3 + 2) + "s";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>snowflake.style.opacity = Math.random();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>snowflake.style.fontSize = (Math.random() * 10 + 10) + "px";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.body.appendChild(snowflake);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>snowflake.remove();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}, 5000);</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">setInterval(createSnowflake, 200);</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
