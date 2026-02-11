@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Cams</title>
+
   <style>
     body {
       margin: 0;
@@ -12,18 +13,26 @@
       color: #fff;
       text-align: center;
     }
-    h1 { padding: 1rem; }
+
+    h1 {
+      padding: 20px;
+    }
+
     .cam-container {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      padding: 1rem;
+      gap: 40px;
+      align-items: center;
+      padding-bottom: 40px;
     }
-    iframe {
-      width: 100%;
-      max-width: 800px;
-      height: 450px;
+
+    iframe, img {
+      width: 90%;
+      max-width: 900px;
+      height: 500px;
       border: 2px solid #444;
+      object-fit: cover;
+      background: #111;
     }
   </style>
 </head>
@@ -33,9 +42,9 @@
 
   <div class="cam-container">
 
-    <!-- YouTube Live Stream -->
+    <!-- YouTube Cam -->
     <div>
-      <h2>1. YouTube Cam</h2>
+      <h2>YouTube Cam</h2>
       <iframe
         src="https://www.youtube.com/embed/ChLc41PxUWc"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -43,17 +52,23 @@
       </iframe>
     </div>
 
-    <!-- Center Harbor Inn Webcam Page -->
+    <!-- Center Harbor Snapshot Cam -->
     <div>
-      <h2>2. Lake Winnipesaukee Webcam (Center Harbor Inn)</h2>
-      <iframe
-        src="https://centerharborinn.com/winnipesaukee-webcam/"
-        sandbox="allow-scripts allow-same-origin allow-popups"
-        scrolling="yes">
-      </iframe>
+      <h2>Lake Winnipesaukee – Center Harbor Inn</h2>
+      <img id="centerCam"
+           src="https://spotcameras.com/capture/23537-Center-Harbor-Belknap-County-New-Hampshire-USA-View-of-the-Winnipesaukee-Lake-the-largest-lake-in-the-New-Hamsphire-state-from-the-Center-Harbor-Inn/current.jpg"
+           alt="Center Harbor Webcam">
     </div>
 
   </div>
+
+  <script>
+    // Refresh snapshot every 5 seconds
+    setInterval(function() {
+      const cam = document.getElementById("centerCam");
+      cam.src = "https://spotcameras.com/capture/23537-Center-Harbor-Belknap-County-New-Hampshire-USA-View-of-the-Winnipesaukee-Lake-the-largest-lake-in-the-New-Hamsphire-state-from-the-Center-Harbor-Inn/current.jpg?cacheBust=" + new Date().getTime();
+    }, 5000);
+  </script>
 
 </body>
 </html>
