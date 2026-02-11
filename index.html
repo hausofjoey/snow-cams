@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Live Cams</title>
 
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
   <style>
     body {
       margin: 0;
@@ -60,6 +66,21 @@
       border: none;
     }
 
+    /* Map Section */
+    .map-section {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 80px;
+    }
+
+    #map {
+      width: 90%;
+      max-width: 1200px;
+      height: 700px;
+      margin: 0 auto;
+      border: 2px solid #444;
+    }
+
     /* Snow canvas */
     #snowCanvas {
       position: fixed;
@@ -76,12 +97,11 @@
 
   <h1>Live Cams</h1>
   <div class="description">
-    View live cams around Lake Winnipesaukee in one place to gauge the weather condtions! Scroll down to view Center Harbor Cam, the image updates every few seconds.
+    View live cams around Lake Winnipesaukee in one place to gauge the weather condtions!
   </div>
 
   <div class="cam-container">
 
-    <!-- YouTube Cam -->
     <div class="cam-box">
       <h2>YouTube Cam</h2>
       <iframe
@@ -91,18 +111,40 @@
       </iframe>
     </div>
 
-    <!-- Center Harbor Full Page -->
     <div class="cam-box">
       <h2>Lake Winnipesaukee – Center Harbor Inn</h2>
       <iframe
-  src="https://centerharborinn.com/winnipesaukee-webcam/">
-</iframe>
+        src="https://centerharborinn.com/winnipesaukee-webcam/">
+      </iframe>
     </div>
 
   </div>
 
+  <!-- Map Section -->
+  <div class="map-section">
+    <h2>New England Traffic Map</h2>
+    <div id="map"></div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <script>
-    // Snowfall Animation (unchanged)
+    // Initialize Map (Centered on Lake Winnipesaukee)
+    const map = L.map('map').setView([43.607, -71.360], 10);
+
+    // Base Layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Marker Example (Center Harbor)
+    L.marker([43.607, -71.360])
+      .addTo(map)
+      .bindPopup("Lake Winnipesaukee Area")
+      .openPopup();
+
+    // Snowfall Animation
     const canvas = document.getElementById("snowCanvas");
     const ctx = canvas.getContext("2d");
 
