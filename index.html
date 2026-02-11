@@ -109,19 +109,10 @@ Loading Wolfeboro weather...
     <img id="centerHarborCam" src="https://cam.centerharborinn.com/jpg/1/image.jpg" alt="Center Harbor Cam">
   </div>
 
-  <!-- Bear Island Cam -->
-  <div class="cam-box">
-    <h2>Bear Island Cam</h2>
-    <iframe
-      src="https://video.nest.com/live/E5mdOyTyFC"
-      allowfullscreen>
-    </iframe>
-  </div>
-
   <!-- Snake Eyes Cam -->
   <div class="cam-box">
     <h2>Snake Eyes</h2>
-    <img id="snakeEyesCam" src="http://www.rattlesnakecam.com/snake_eyes.jpg" alt="Snake Eyes Cam">
+    <img id="snakeEyesCam" src="https://images.weserv.nl/?url=www.rattlesnakecam.com/snake_eyes.jpg" alt="Snake Eyes Cam">
   </div>
 
 </div>
@@ -151,10 +142,10 @@ function refreshCenterHarbor() {
 }
 setInterval(refreshCenterHarbor, 5000); // Refresh every 5 seconds
 
-// Snake Eyes image refresh
+// Snake Eyes image refresh via proxy (weserv.nl)
 const snakeEyesCam = document.getElementById("snakeEyesCam");
 function refreshSnakeEyes() {
-  snakeEyesCam.src = `http://www.rattlesnakecam.com/snake_eyes.jpg?timestamp=${Date.now()}`;
+  snakeEyesCam.src = `https://images.weserv.nl/?url=www.rattlesnakecam.com/snake_eyes.jpg&${Date.now()}`;
 }
 setInterval(refreshSnakeEyes, 5000); // Refresh every 5 seconds
 
