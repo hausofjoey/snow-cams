@@ -61,7 +61,7 @@ h1 {
   margin: 10px 0;
 }
 
-iframe, img {
+iframe, img, video {
   flex: 1;
   width: 100%;
   height: 100%;
@@ -106,23 +106,41 @@ Loading Wolfeboro weather...
   <!-- Center Harbor Cam -->
   <div class="cam-box">
     <h2>Lake Winnipesaukee – Center Harbor Inn</h2>
-    <img id="centerHarborCam" src="https://cam.centerharborinn.com/jpg/1/image.jpg" alt="Center Harbor Cam">
+    <img id="centerHarborCam" src="https://cam.centerharborinn.com/jpg/1/image.jpg">
   </div>
 
   <!-- Snake Eyes Cam -->
   <div class="cam-box">
     <h2>Snake Eyes</h2>
-    <img id="snakeEyesCam" src="https://images.weserv.nl/?url=www.rattlesnakecam.com/snake_eyes.jpg" alt="Snake Eyes Cam">
+    <img id="snakeEyesCam" src="https://images.weserv.nl/?url=www.rattlesnakecam.com/snake_eyes.jpg">
+  </div>
+
+  <!-- Piping Rock Resort -->
+  <div class="cam-box">
+    <h2>Piping Rock Resort</h2>
+    <video id="pipingRock" controls autoplay muted playsinline></video>
+  </div>
+
+  <!-- Mt Washington Cog -->
+  <div class="cam-box">
+    <h2>Mt. Washington Cog</h2>
+    <iframe
+      src="https://www.youtube.com/embed/k0Dp4c-VQEQ?autoplay=1&mute=1"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
   </div>
 
 </div>
 
+<!-- HLS.js for .m3u8 playback -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 <script>
-// Wolfeboro, NH coordinates
+// Wolfeboro weather
 const lat = 43.5867;
 const lon = -71.2148;
 
-// Fetch weather in Fahrenheit + MPH
 fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph`)
   .then(res => res.json())
   .then(data => {
@@ -132,22 +150,34 @@ fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&c
   })
   .catch(() => {
     document.getElementById("weatherInfo").innerHTML =
-      "Weather data currently unavailable.";
+      "Weather data unavailable.";
   });
 
-// Center Harbor image refresh
+// Refresh Center Harbor
 const centerHarborCam = document.getElementById("centerHarborCam");
-function refreshCenterHarbor() {
-  centerHarborCam.src = `https://cam.centerharborinn.com/jpg/1/image.jpg?timestamp=${Date.now()}`;
-}
-setInterval(refreshCenterHarbor, 5000); // Refresh every 5 seconds
+setInterval(() => {
+  centerHarborCam.src =
+    `https://cam.centerharborinn.com/jpg/1/image.jpg?${Date.now()}`;
+}, 5000);
 
-// Snake Eyes image refresh via proxy (weserv.nl)
+// Refresh Snake Eyes
 const snakeEyesCam = document.getElementById("snakeEyesCam");
-function refreshSnakeEyes() {
-  snakeEyesCam.src = `https://images.weserv.nl/?url=www.rattlesnakecam.com/snake_eyes.jpg&${Date.now()}`;
+setInterval(() => {
+  snakeEyesCam.src =
+    `https://images.weserv.nl/?url=www.rattlesnakecam.com/snake_eyes.jpg&${Date.now()}`;
+}, 5000);
+
+// Piping Rock HLS Stream
+const video = document.getElementById('pipingRock');
+const streamUrl = "https://s59.ipcamlive.com/streams/3bzlrsgmsxuxhwp9i/stream.m3u8";
+
+if (Hls.isSupported()) {
+  const hls = new Hls();
+  hls.loadSource(streamUrl);
+  hls.attachMedia(video);
+} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  video.src = streamUrl;
 }
-setInterval(refreshSnakeEyes, 5000); // Refresh every 5 seconds
 
 // Snow animation
 const canvas = document.getElementById("snowCanvas");
@@ -205,7 +235,6 @@ function updateSnow() {
 
 createSnowflakes();
 updateSnow();
-
 </script>
 
 </body>
